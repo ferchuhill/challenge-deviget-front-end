@@ -1,31 +1,24 @@
 import { BiComment, BiHide, BiBookReader } from 'react-icons/bi';
-import Image from 'next/image';
+import { PostType } from '../../util';
+import { PostMedia } from './PostMedia';
 
-export const Post = () => {
+export const Post = ({ post }: { post: PostType }) => {
   return (
     <>
       <article>
         <div className="article_header">
-          <div>Posted by Author</div>
-          <div>x hours ago</div>
+          <div>{post.author}</div>
+          <div>{post.created}</div>
         </div>
         <div className="article_title">
-          Title <div className="new_post">new</div>
+          {post.title} <div className="new_post">new</div>
         </div>
         <div className="article_thumbnail">
-          <div className="article_thumbnail-image">
-            <Image
-              src={
-                'https://preview.redd.it/71w9peabkgn71.jpg?width=604&format=pjpg&auto=webp&s=7f7e79ed4c2787e92d0b3f2859c3af80c2c38972'
-              }
-              layout="fill"
-              alt="thumbnail"
-            />
-          </div>
+          <PostMedia thumbnail={post.thumbnail} title={post.title} isVideo={post.is_video} videoUrl={post.videoUrl} />
         </div>
         <div className="article_footer">
           <div className="article_footer-element">
-            <BiComment /> <div>3 Comments</div>
+            <BiComment /> <div>{post.num_comments} Comments</div>
           </div>
           <div className="article_footer-element">
             <BiBookReader /> <div>Mark as read</div>
@@ -57,9 +50,6 @@ export const Post = () => {
           }
 
           .article_thumbnail {
-          }
-          .article_thumbnail-image {
-            @apply relative top-0 left-0 right-0 h-96 w-full flex justify-center items-center;
           }
 
           .article_footer {

@@ -1,14 +1,16 @@
+import { PropsIndexType } from '../../util';
 import { Navigation } from '../navigation';
 import { Post } from './Post';
 
-export const PopularPosts = () => {
+export const PopularPosts = ({ after, before, posts }: PropsIndexType) => {
   return (
     <>
       <section>
         <Navigation />
         <div className="posts">
-          <Post />
-          <Post />
+          {posts.map((post) => {
+            return <Post key={post.id} post={post} />;
+          })}
         </div>
       </section>
       <style jsx>
