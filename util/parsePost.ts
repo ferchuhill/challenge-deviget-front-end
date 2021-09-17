@@ -26,7 +26,7 @@ const getThumbnail = (images: any[]): ThumbnailType => {
 };
 
 const parseRedditPostToPost = (item: RedditPostType): PostType => {
-  const thumbnail: ThumbnailType = getThumbnail(item.data.preview.images);
+  const thumbnail: ThumbnailType = item.data.preview && getThumbnail(item.data.preview.images);
   dayjs.extend(relativeTime);
 
   dayjs.unix(item.data.created_utc);
@@ -40,7 +40,7 @@ const parseRedditPostToPost = (item: RedditPostType): PostType => {
     ups: item.data.ups,
     downs: item.data.downs,
     num_comments: item.data.num_comments,
-    full_imagen: item.data.preview.images,
+    full_imagen: item.data.preview ? item.data.preview.images : undefined,
     videoUrl: item.data.is_video ? item.data.secure_media.reddit_video.fallback_url : undefined,
     is_video: item.data.is_video,
   };

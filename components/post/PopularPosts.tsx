@@ -2,15 +2,30 @@ import { PropsIndexType } from '../../util';
 import { Navigation } from '../navigation';
 import { Post } from './Post';
 
-export const PopularPosts = ({ after, before, posts }: PropsIndexType) => {
+import { useAppSelector, useAppDispatch } from '../../hook/useRedux';
+import { setPosts, findPost, getPost } from '../../redux/slice/postsSlice';
+import { useEffect, useState } from 'react';
+
+export const PopularPosts = () => {
+  const dispatch = useAppDispatch();
+  const postsRedux = useAppSelector(getPost);
+
+  useEffect(() => {
+    dispatch(findPost());
+  }, []);
+
   return (
     <>
       <section>
         <Navigation />
         <div className="posts">
-          {posts.map((post) => {
-            return <Post key={post.id} post={post} />;
-          })}
+          {postsRedux.posts.length > 0 ? (
+            postsRedux.posts.map((post) => {
+              return <Post key={post.id} post={post} />;
+            })
+          ) : (
+            <Post post={undefined} />
+          )}
         </div>
       </section>
       <style jsx>
