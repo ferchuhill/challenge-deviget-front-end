@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import got from 'got';
-import { parseRedditPostToPost, PostType } from '../../util';
+import { parseRedditPostToPost, PostType } from '../../../../util';
 
 type Data = {
   data: PostType | string;

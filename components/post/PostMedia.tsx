@@ -24,21 +24,8 @@ export const PostMedia = ({
 }) => {
   const [showFullImage, setShowFullImage] = useState<boolean>(false);
 
-  const ref = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = useCallback(
-    (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setShowFullImage(false);
-      }
-    },
-    [ref.current]
-  );
-
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside, true);
     return () => {
-      document.removeEventListener('click', handleClickOutside, true);
       disableScroll.off();
     };
   });
@@ -64,7 +51,7 @@ export const PostMedia = ({
           )}
         </div>
       )}
-      {showFullImage && <PostImageModal title={title} full_imagen={full_imagen} handleClick={handleClick} ref={ref} />}
+      {showFullImage && <PostImageModal title={title} full_imagen={full_imagen} handleClick={handleClick} />}
       <style jsx>
         {`
           video[poster] {

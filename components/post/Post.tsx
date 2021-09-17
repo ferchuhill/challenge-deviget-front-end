@@ -1,19 +1,43 @@
-import { BiComment, BiHide, BiBookReader } from 'react-icons/bi';
+import { useEffect, useState } from 'react';
+import { BiComment, BiHide, BiBookReader, BiBook } from 'react-icons/bi';
+import { useAppDispatch } from '../../hook/useRedux';
+import { setReadPost, setDismissPost } from '../../redux/slice/postsSlice';
 import { PostType } from '../../util';
 import { PostMedia } from './PostMedia';
 
 //Is show the post details, or the skeleton when is empty.
 export const Post = ({ post }: { post: PostType | undefined }) => {
+  const [read, setRead] = useState<boolean>(post ? post.read : false);
+
+  const [dismiss, setDismiss] = useState<boolean>(post ? post.dismiss : false);
+
+  const dispatch = useAppDispatch();
+
+  const handlerMarkRead = () => {
+    setRead(!read);
+  };
+  useEffect(() => {
+    post && post.read !== read && dispatch(setReadPost({ id: post.id, read: read }));
+  }, [read]);
+
+  const handlerDismiss = () => {
+    setDismiss(!dismiss);
+  };
+  useEffect(() => {
+    post && post.dismiss !== dismiss && dispatch(setDismissPost({ id: post.id }));
+  }, [dismiss]);
+
   return (
     <>
-      {post ? (
+      {post && dismiss === false ? (
         <article>
           <div className="article_header">
             <div>{post.author}</div>
-            <div>{post.created}</div>
+            <div>{read}</div>
           </div>
           <div className="article_title">
-            {post.title} <div className="new_post">new</div>
+            {post.title}
+            {read === false && <div className="new_post">new</div>}
           </div>
           <div className="article_thumbnail">
             <PostMedia
@@ -28,10 +52,18 @@ export const Post = ({ post }: { post: PostType | undefined }) => {
             <div className="article_footer-element">
               <BiComment /> <div>{post.num_comments} Comments</div>
             </div>
-            <div className="article_footer-element">
-              <BiBookReader /> <div>Mark as read</div>
+            <div className="article_footer-element" onClick={handlerMarkRead}>
+              {read ? (
+                <>
+                  <BiBook /> <div>Mark as unread</div>
+                </>
+              ) : (
+                <>
+                  <BiBookReader /> <div>Mark as read</div>
+                </>
+              )}
             </div>
-            <div className="article_footer-element">
+            <div className="article_footer-element" onClick={handlerDismiss}>
               <BiHide /> <div>Hide</div>
             </div>
           </div>
@@ -71,7 +103,7 @@ export const Post = ({ post }: { post: PostType | undefined }) => {
           }
 
           .article_footer-element {
-            @apply flex flex-row  items-center p-2 cursor-pointer;
+            @apply flex flex-row justify-center items-center p-2 cursor-pointer;
             @apply hover:bg-gray-300  focus:border-gray-300 focus:bg-gray-300 focus:ring-gray-300 rounded-full;
           }
 

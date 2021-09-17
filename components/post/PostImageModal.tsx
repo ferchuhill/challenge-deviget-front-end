@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { IcoClose } from '../icon/icoClose';
 import { BiCloudDownload } from 'react-icons/bi';
 import { ThumbnailType } from '../../util';
-import { MouseEventHandler, RefObject } from 'react';
+import { ForwardedRef, MouseEventHandler } from 'react';
 
 import FileSaver from 'file-saver';
 
@@ -12,23 +12,34 @@ export const PostImageModal = ({
   title,
   full_imagen,
   handleClick,
-  ref,
+  forwardRef,
 }: {
   title: string;
   full_imagen: ThumbnailType;
   handleClick: MouseEventHandler<HTMLButtonElement>;
-  ref: RefObject<HTMLDivElement>;
+  forwardRef: ForwardedRef<HTMLDivElement>;
 }) => {
   const saveFileHandler = () => {
-    FileSaver.saveAs(full_imagen.url, 'image.jpg');
+    FileSaver.saveAs(full_imagen.url);
   };
 
-  const widhtCalculated = parseInt(full_imagen.height) / 16;
+  let widhtCalculated = parseInt(full_imagen.width) / 16;
+  let heightCalculated = parseInt(full_imagen.height) / 16;
+
+  //Fix distint size type to ajust
+  if (heightCalculated > 32) {
+    let diff = heightCalculated - 32;
+    heightCalculated = 32;
+    widhtCalculated -= diff / 1.5;
+  }
+  if (widhtCalculated < 10) {
+    widhtCalculated = 17;
+  }
 
   return (
     <>
       <div className="modal">
-        <div ref={ref} className="modal_content">
+        <div ref={forwardRef} className="modal_content">
           <div className="modal_content_inner">
             {title}
             <div className="modal-close cursor-pointer z-50">
@@ -38,14 +49,11 @@ export const PostImageModal = ({
             </div>
           </div>
           <div className=" model_content_image ">
-            <div className=" model_content_image_wrapper" style={{ height: '33rem', width: `${widhtCalculated}rem` }}>
-              <Image
-                src={full_imagen.url}
-                layout="fill"
-                height={full_imagen.height}
-                width={full_imagen.width}
-                alt={title}
-              />
+            <div
+              className=" model_content_image_wrapper"
+              style={{ height: `${heightCalculated}rem`, width: `${widhtCalculated}rem` }}
+            >
+              <Image src={full_imagen.url} layout="fill" alt={title} />
             </div>
           </div>
 

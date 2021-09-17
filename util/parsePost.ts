@@ -45,12 +45,14 @@ const parseRedditPostToPost = (item: RedditPostType): PostType => {
     full_imagen: item.data.preview
       ? {
           url: item.data.preview.images[0].source.url.replace(/\&amp;/g, '&'),
-          width: item.data.preview.images[0].source.height,
-          height: item.data.preview.images[0].source.width,
+          width: item.data.preview.images[0].source.width,
+          height: item.data.preview.images[0].source.height,
         }
       : undefined,
     videoUrl: item.data.is_video ? item.data.secure_media.reddit_video.fallback_url : undefined,
     is_video: item.data.is_video,
+    read: false,
+    dismiss: false,
   };
 };
 

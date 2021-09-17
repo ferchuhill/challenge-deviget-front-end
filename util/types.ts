@@ -17,3 +17,16 @@ export type ThumbnailType = {
   width: string;
   height: string;
 };
+
+export type PostReadAction = {
+  id: string;
+  read: boolean;
+};
+
+export type PostDissmisAction = {
+  id: string;
+};
+
+export type PostDissmisAllAction = {
+  id: string[];
+};

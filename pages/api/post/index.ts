@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import got from 'got';
-import { parseRedditPostToPost, PostType } from '../../util';
+import { parseRedditPostToPost, PostType } from '../../../util';
 
 type Data = {
   data: PostType | string;
@@ -12,14 +12,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method !== 'GET') {
     res.status(400).json({ status: 'error', data: 'Method not support' });
   }
-
-  const afterQuery = req.query.after;
   const { REDDIT_API } = process.env;
 
   let query = `?limit=10&count=10&show=true`;
-  if (afterQuery) {
-    query += `&after=${afterQuery}`;
-  }
 
   const response: {
     data: {

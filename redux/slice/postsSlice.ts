@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { AppState, AppThunk } from '../store';
 import { fetchPosts } from '../../service/postsApi';
-import { PropsIndexType } from '../../util';
+import { PostDissmisAction, PostDissmisAllAction, PostReadAction, PropsIndexType } from '../../util';
 
 export interface CounterState {
   value: PropsIndexType;
@@ -15,11 +15,14 @@ const initialState: CounterState = {
 };
 
 // The function below is called a thunk and allows us to perform async logic.
-export const findPost = createAsyncThunk('posts/fetchPosts', async () => {
-  const response = await fetchPosts();
-  // The value we return becomes the `fulfilled` action payload
-  return response;
-});
+export const findPost = createAsyncThunk(
+  'posts/fetchPosts',
+  async ({ after, before }: { after?: string; before?: string }) => {
+    const response = await fetchPosts({ after, before });
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
 
 export const counterSlice = createSlice({
   name: 'posts',
@@ -29,6 +32,35 @@ export const counterSlice = createSlice({
     // Use the PayloadAction type to declare the contents of `action.payload`
     setPosts: (state, action: PayloadAction<PropsIndexType>) => {
       state.value = action.payload;
+    },
+    //Set a Post as Read
+    setReadPost: (state, action: PayloadAction<PostReadAction>) => {
+      state.value.posts = state.value.posts.map((post) => {
+        if (post.id === action.payload.id) {
+          post.read = action.payload.read;
+        }
+        return post;
+      });
+    },
+    //Set a Post as dissmis
+    setDismissPost: (state, action: PayloadAction<PostDissmisAction>) => {
+      state.value.posts = state.value.posts.map((post) => {
+        if (post.id === action.payload.id) {
+          post.dismiss = true;
+        }
+        return post;
+      });
+    },
+    //Set all Posts as dissmis
+    setDismissAllPost: (state, action: PayloadAction<PostDissmisAllAction>) => {
+      console.log(action.payload.id);
+      state.value.posts = state.value.posts.map((post) => {
+        console.log(action.payload.id.indexOf(post.id), post.id);
+        if (action.payload.id.indexOf(post.id) >= 0) {
+          post.dismiss = true;
+        }
+        return post;
+      });
     },
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -40,15 +72,21 @@ export const counterSlice = createSlice({
       })
       .addCase(findPost.fulfilled, (state, action) => {
         state.status = 'idle';
+        console.log(state.value);
         state.value = action.payload;
       });
   },
 });
 
-export const { setPosts } = counterSlice.actions;
+export const { setPosts, setReadPost, setDismissPost, setDismissAllPost } = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state.
-export const getPost = (state: AppState) => state.posts.value;
+export const getPost = (state: AppState) => {
+  const posts = state.posts.value.posts.filter((post) => {
+    return post.dismiss !== true;
+  });
+  return { after: state.posts.value.after, before: state.posts.value.before, posts: posts };
+};
 
 export default counterSlice.reducer;
