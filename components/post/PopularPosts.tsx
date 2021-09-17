@@ -6,6 +6,7 @@ import { useAppSelector, useAppDispatch } from '../../hook/useRedux';
 import { setPosts, findPost, getPost } from '../../redux/slice/postsSlice';
 import { useEffect, useState } from 'react';
 
+// this component is showwing all the Posts, or show the loading process
 export const PopularPosts = () => {
   const dispatch = useAppDispatch();
   const postsRedux = useAppSelector(getPost);

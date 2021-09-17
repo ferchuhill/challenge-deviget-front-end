@@ -1,3 +1,4 @@
+// Show the name Reddit
 export const IcoLogoName = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg viewBox="0 0 57 18" xmlns="http://www.w3.org/2000/svg" {...props}>

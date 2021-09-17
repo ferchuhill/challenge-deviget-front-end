@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
+    "@types/file-saver": "^2.0.3",
     "dayjs": "^1.10.7",
+    "disable-scroll": "^0.6.0",
+    "file-saver": "^2.0.5",
     "got": "^11.8.2",
     "next": "11.1.2",
     "react": "17.0.2",

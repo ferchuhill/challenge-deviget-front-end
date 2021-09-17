@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Header } from './';
 
+// encharge to generate the layout use in the application
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
@@ -11,7 +12,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
       <style jsx>
         {`
           main {
-            @apply relative mt-12 p-2 bg-gray-200;
+            @apply mt-12 p-2 bg-gray-200;
           }
           main div {
             @apply container mx-auto;

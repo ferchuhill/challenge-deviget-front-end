@@ -2,6 +2,8 @@ import { BiBarChartAlt2 } from 'react-icons/bi';
 
 import Link from 'next/link';
 
+// This component is use to see the diferent option in the main part,
+// contains the different option to navigate
 export const Navigation = () => {
   return (
     <>

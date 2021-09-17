@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
 import counterReducer from './slice/postsSlice';
 
+//Generate the store use to wrapper the page
 export function makeStore() {
   return configureStore({
     reducer: { posts: counterReducer },

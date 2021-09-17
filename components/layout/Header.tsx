@@ -1,5 +1,6 @@
-import { IcoLogo, IcoLogoName } from "../icon";
+import { IcoLogo, IcoLogoName } from '../icon';
 
+// The header component, tah show the logo and the name
 export const Header = () => {
   return (
     <>

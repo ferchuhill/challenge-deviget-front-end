@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import got from 'got';
 import { parseRedditPostToPost, PostType } from '../../util';
@@ -8,6 +7,7 @@ type Data = {
   status: 'error' | 'ok';
 };
 
+// Internal api, the function is to search to the reddit api, when recive the data, is parse and return
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method !== 'GET') {
     res.status(400).json({ status: 'error', data: 'Method not support' });

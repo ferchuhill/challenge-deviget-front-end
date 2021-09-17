@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { PopularPosts } from '../components/post';
 import { PropsIndexType } from '../util';
 
+// Principal page "/".
+
 export const Home: NextPage<PropsIndexType> = (): JSX.Element => {
   return (
     <>
