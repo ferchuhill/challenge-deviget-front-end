@@ -6,7 +6,7 @@ import { IcoLogo, IcoLogoName } from '../icon';
 export const Header = () => {
   const dispatch = useAppDispatch();
   const handlerClick = () => {
-    dispatch(findPost({}));
+    dispatch(findPost());
   };
 
   return (
