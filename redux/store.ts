@@ -1,12 +1,28 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
-import counterReducer from './slice/postsSlice';
+import storage from 'redux-persist/lib/storage';
+import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import thunk from 'redux-thunk';
+
+import postReducer from './slice/postsSlice';
+import viewRedicer from './slice/viewTypeSlice';
+
+const reducers = combineReducers({ posts: postReducer, view: viewRedicer });
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
 
 //Generate the store use to wrapper the page
 export function makeStore() {
   return configureStore({
-    reducer: { posts: counterReducer },
+    reducer: persistedReducer,
     devTools: true,
+    middleware: [thunk],
   });
 }
 const store = makeStore();

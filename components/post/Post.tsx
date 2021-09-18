@@ -33,7 +33,7 @@ export const Post = ({ post }: { post: PostType | undefined }) => {
         <article>
           <div className="article_header">
             <div>{post.author}</div>
-            <div>{read}</div>
+            <div>{post.created}</div>
           </div>
           <div className="article_title">
             {post.title}
@@ -84,6 +84,7 @@ export const Post = ({ post }: { post: PostType | undefined }) => {
         {`
           article {
             @apply w-full bg-white border p-5  border-gray-300 text-gray-900 rounded-md flex flex-col mb-3;
+            transition: transform ease-out 0.3s;
           }
           .article_header {
             @apply text-sm text-gray-500 flex flex-row;
@@ -117,7 +118,7 @@ export const Post = ({ post }: { post: PostType | undefined }) => {
 
           .skeleton .article_title,
           .skeleton .article_footer-element {
-            @apply bg-gray-200 text-gray-200 h-10 rounded;
+            @apply bg-gray-200 text-gray-200 h-10 rounded text-xs md:text-base;
           }
 
           .skeleton .article_footer-element {

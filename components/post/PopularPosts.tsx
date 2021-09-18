@@ -4,19 +4,26 @@ import { Post } from './Post';
 
 import { useAppSelector, useAppDispatch } from '../../hook/useRedux';
 import { findPost, getPost, setDismissAllPost } from '../../redux/slice/postsSlice';
+import { getViewType } from '../../redux/slice/viewTypeSlice';
 import { useEffect, useState } from 'react';
+import { PostList } from './PostList';
 
 // this component is showwing all the Posts, or show the loading process
 export const PopularPosts = () => {
   const dispatch = useAppDispatch();
   const postsRedux = useAppSelector(getPost);
+  const viewType = useAppSelector(getViewType);
+
+  const [isGridView, setIsGridView] = useState<boolean>(viewType === 'grid');
 
   const findPrevious = () => {
     dispatch(findPost({ after: undefined, before: postsRedux.before }));
+    window.scrollTo(0, 0);
   };
 
   const findNext = () => {
     dispatch(findPost({ after: postsRedux.after, before: undefined }));
+    window.scrollTo(0, 0);
   };
 
   const handlerDismissAllPost = () => {
@@ -27,24 +34,36 @@ export const PopularPosts = () => {
   };
 
   useEffect(() => {
-    dispatch(findPost({ after: undefined }));
+    dispatch(findPost({}));
   }, []);
+
+  useEffect(() => {
+    viewType === 'grid' ? setIsGridView(true) : setIsGridView(false);
+  }, [viewType]);
 
   return (
     <>
       <section>
         <Navigation />
-        <div className="posts">
-          {postsRedux.posts.length > 0 ? (
-            <>
-              {postsRedux.posts.map((post) => {
-                return <Post key={post.id} post={post} />;
-              })}
-            </>
-          ) : (
-            <Post post={undefined} />
-          )}
-        </div>
+        {isGridView ? (
+          <div className="grid">
+            {postsRedux.posts.length > 0 ? (
+              <>
+                {postsRedux.posts.map((post) => {
+                  return <Post key={post.id} post={post} />;
+                })}
+              </>
+            ) : (
+              <Post post={undefined} />
+            )}
+          </div>
+        ) : (
+          <div className="list">
+            {postsRedux.posts.map((post) => {
+              return <PostList key={post.id} post={post} />;
+            })}
+          </div>
+        )}
         <div className="paginator">
           <div>
             <button onClick={findPrevious}>Anterior</button>
@@ -62,8 +81,11 @@ export const PopularPosts = () => {
       </section>
       <style jsx>
         {`
-          .posts {
+          .grid {
             @apply md:w-8/12 w-full my-3;
+          }
+          .list {
+            @apply w-full my-3;
           }
           .paginator {
             @apply flex flex-row w-full justify-start items-center;
