@@ -3,7 +3,6 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
-import thunk from 'redux-thunk';
 
 import postReducer from './slice/postsSlice';
 import viewRedicer from './slice/viewTypeSlice';
@@ -22,7 +21,6 @@ export function makeStore() {
   return configureStore({
     reducer: persistedReducer,
     devTools: true,
-    middleware: [thunk],
   });
 }
 const store = makeStore();

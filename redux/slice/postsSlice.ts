@@ -17,12 +17,25 @@ const initialState: CounterState = {
 // The function below is called a thunk and allows us to perform async logic.
 export const findPost = createAsyncThunk(
   'posts/fetchPosts',
-  async ({ after, before }: { after?: string; before?: string }) => {
-    const response = await fetchPosts({ after, before });
+  // async ({ after, before }: { after?: string; before?: string }) => {
+  async () => {
+    const response = await fetchPosts({ after: undefined, before: undefined });
     // The value we return becomes the `fulfilled` action payload
     return response;
   }
 );
+
+export const findPostBefore = createAsyncThunk('posts/fetchPostsBefore', async ({ before }: { before?: string }) => {
+  const response = await fetchPosts({ after: undefined, before: before });
+  // The value we return becomes the `fulfilled` action payload
+  return response;
+});
+
+export const findPostAfter = createAsyncThunk('posts/fetchPostsAfter', async ({ after }: { after: string }) => {
+  const response = await fetchPosts({ after: after, before: undefined });
+  // The value we return becomes the `fulfilled` action payload
+  return response;
+});
 
 export const counterSlice = createSlice({
   name: 'posts',
@@ -71,6 +84,22 @@ export const counterSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(findPost.fulfilled, (state, action) => {
+        state.status = 'idle';
+        console.log(state.value);
+        state.value = action.payload;
+      })
+      .addCase(findPostBefore.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(findPostBefore.fulfilled, (state, action) => {
+        state.status = 'idle';
+        console.log(state.value);
+        state.value = action.payload;
+      })
+      .addCase(findPostAfter.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(findPostAfter.fulfilled, (state, action) => {
         state.status = 'idle';
         console.log(state.value);
         state.value = action.payload;

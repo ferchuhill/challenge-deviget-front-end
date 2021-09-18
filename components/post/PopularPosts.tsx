@@ -3,7 +3,7 @@ import { Navigation } from '../navigation';
 import { Post } from './Post';
 
 import { useAppSelector, useAppDispatch } from '../../hook/useRedux';
-import { findPost, getPost, setDismissAllPost } from '../../redux/slice/postsSlice';
+import { findPost, findPostAfter, findPostBefore, getPost, setDismissAllPost } from '../../redux/slice/postsSlice';
 import { getViewType } from '../../redux/slice/viewTypeSlice';
 import { useEffect, useState } from 'react';
 import { PostList } from './PostList';
@@ -17,24 +17,27 @@ export const PopularPosts = () => {
   const [isGridView, setIsGridView] = useState<boolean>(viewType === 'grid');
 
   const findPrevious = () => {
-    dispatch(findPost({ after: undefined, before: postsRedux.before }));
+    dispatch(findPostBefore({ before: postsRedux.before }));
     window.scrollTo(0, 0);
   };
 
   const findNext = () => {
-    dispatch(findPost({ after: postsRedux.after, before: undefined }));
+    dispatch(findPostAfter({ after: postsRedux.after }));
     window.scrollTo(0, 0);
   };
 
-  const handlerDismissAllPost = () => {
+  const handlerDismissAllPost = async () => {
     const ids = postsRedux.posts.map((post) => {
       return post.id;
     });
     dispatch(setDismissAllPost({ id: ids }));
+
+    //wait for reload the next page
+    findNext();
   };
 
   useEffect(() => {
-    dispatch(findPost({}));
+    postsRedux.posts.length < 1 && dispatch(findPost());
   }, []);
 
   useEffect(() => {
@@ -65,12 +68,12 @@ export const PopularPosts = () => {
           </div>
         )}
         <div className="paginator">
-          <div>
-            <button onClick={findPrevious}>Anterior</button>
-          </div>
-          <div>
-            <button onClick={findNext}>Siguiente</button>
-          </div>
+          <button onClick={findPrevious}>
+            <div>Anterior</div>
+          </button>
+          <button onClick={findNext}>
+            <div>Siguiente</div>
+          </button>
         </div>
         <div className="dismiss_all">
           <button onClick={handlerDismissAllPost}>

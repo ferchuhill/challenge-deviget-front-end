@@ -47,7 +47,7 @@ export const PostList = ({ post }: { post: PostType }) => {
           }
 
           .list_item.showing_detail {
-            @apply hidden md:flex;
+            @apply hidden md:flex max-h-32;
           }
 
           .list_item {
@@ -63,7 +63,7 @@ export const PostList = ({ post }: { post: PostType }) => {
           }
 
           .list_post button {
-            @apply w-6 right-10 cursor-pointer text-white text-center float-right;
+            @apply w-6 right-10 cursor-pointer text-white text-center float-right p-1;
             @apply bg-white border-reddit-dark ring-reddit-light rounded-full;
           }
 
