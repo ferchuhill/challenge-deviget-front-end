@@ -6,7 +6,7 @@ import { PostType } from '../../util';
 import { PostMedia } from './PostMedia';
 
 //Is show the post details, or the skeleton when is empty.
-export const Post = ({ post }: { post: PostType | undefined }) => {
+export const Post = ({ post }: { post: PostType | undefined }): JSX.Element => {
   const [read, setRead] = useState<boolean>(post ? post.read : false);
 
   const [dismiss, setDismiss] = useState<boolean>(post ? post.dismiss : false);
@@ -18,14 +18,14 @@ export const Post = ({ post }: { post: PostType | undefined }) => {
   };
   useEffect(() => {
     post && post.read !== read && dispatch(setReadPost({ id: post.id, read: read }));
-  }, [read]);
+  }, [dispatch, post, read]);
 
   const handlerDismiss = () => {
     setDismiss(!dismiss);
   };
   useEffect(() => {
     post && post.dismiss !== dismiss && dispatch(setDismissPost({ id: post.id }));
-  }, [dismiss]);
+  }, [dismiss, dispatch, post]);
 
   return (
     <>

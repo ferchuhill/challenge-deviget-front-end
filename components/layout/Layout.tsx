@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Header } from './';
 
 // encharge to generate the layout use in the application
-export const Layout = ({ children }: { children: ReactNode }) => {
+export const Layout = ({ children }: { children: ReactNode }): JSX.Element => {
   return (
     <>
       <Header />

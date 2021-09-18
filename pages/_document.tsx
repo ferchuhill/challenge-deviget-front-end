@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {

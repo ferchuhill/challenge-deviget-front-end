@@ -3,7 +3,7 @@ import { Post } from '.';
 import { PostType } from '../../util';
 import { IcoClose } from '../icon/icoClose';
 
-export const PostList = ({ post }: { post: PostType }) => {
+export const PostList = ({ post }: { post: PostType }): JSX.Element => {
   const [isVisiblePost, setIsVisiblePost] = useState<boolean>(false);
   const [classNameListItem, setClassNameListItem] = useState<string>('list_item');
 

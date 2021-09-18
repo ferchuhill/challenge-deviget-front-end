@@ -11,7 +11,7 @@ export const PostImage = ({
   thumbnail: ThumbnailType;
   title: string;
   handleClick: MouseEventHandler<HTMLDivElement>;
-}) => {
+}): JSX.Element => {
   return (
     <>
       {!thumbnail ? (

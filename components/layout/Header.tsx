@@ -3,7 +3,7 @@ import { findPost } from '../../redux/slice/postsSlice';
 import { IcoLogo, IcoLogoName } from '../icon';
 
 // The header component, tah show the logo and the name
-export const Header = () => {
+export const Header = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const handlerClick = () => {
     dispatch(findPost());

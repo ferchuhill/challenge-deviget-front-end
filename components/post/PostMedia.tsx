@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ThumbnailType } from '../../util';
 
 import disableScroll from 'disable-scroll';
@@ -21,23 +21,10 @@ export const PostMedia = ({
   isVideo: boolean;
   videoUrl?: string;
   full_imagen: ThumbnailType;
-}) => {
+}): JSX.Element => {
   const [showFullImage, setShowFullImage] = useState<boolean>(false);
 
-  const ref = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = useCallback(
-    (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setShowFullImage(false);
-      }
-    },
-    [ref.current]
-  );
-
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside, true);
-    document.removeEventListener('click', handleClickOutside, true);
     return () => {
       disableScroll.off();
     };
@@ -64,9 +51,7 @@ export const PostMedia = ({
           )}
         </div>
       )}
-      {showFullImage && (
-        <PostImageModal title={title} full_imagen={full_imagen} handleClick={handleClick} forwardRef={ref} />
-      )}
+      {showFullImage && <PostImageModal title={title} full_imagen={full_imagen} handleClick={handleClick} />}
       <style jsx>
         {`
           video[poster] {

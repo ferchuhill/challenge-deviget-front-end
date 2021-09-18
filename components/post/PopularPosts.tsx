@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { PostList } from './PostList';
 
 // this component is showwing all the Posts, or show the loading process
-export const PopularPosts = () => {
+export const PopularPosts = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const postsRedux = useAppSelector(getPost);
   const viewType = useAppSelector(getViewType);

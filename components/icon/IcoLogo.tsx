@@ -1,5 +1,5 @@
 // Show the Logo of reddit
-export const IcoLogo = (props: React.SVGProps<SVGSVGElement>) => {
+export const IcoLogo = (props: React.SVGProps<SVGSVGElement>): JSX.Element => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" {...props}>
       <circle fill="#FF4500" cx={10} cy={10} r={10} />

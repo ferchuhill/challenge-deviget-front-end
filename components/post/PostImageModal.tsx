@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { IcoClose } from '../icon/icoClose';
 import { BiCloudDownload } from 'react-icons/bi';
 import { ThumbnailType } from '../../util';
-import { ForwardedRef, MouseEventHandler } from 'react';
+import { MouseEventHandler } from 'react';
 
 import FileSaver from 'file-saver';
 
@@ -12,13 +12,11 @@ export const PostImageModal = ({
   title,
   full_imagen,
   handleClick,
-  forwardRef,
 }: {
   title: string;
   full_imagen: ThumbnailType;
   handleClick: MouseEventHandler<HTMLButtonElement>;
-  forwardRef: ForwardedRef<HTMLDivElement>;
-}) => {
+}): JSX.Element => {
   const saveFileHandler = () => {
     FileSaver.saveAs(full_imagen.url);
   };
@@ -28,7 +26,7 @@ export const PostImageModal = ({
 
   //Fix distint size type to ajust
   if (heightCalculated > 32) {
-    let diff = heightCalculated - 32;
+    const diff = heightCalculated - 32;
     heightCalculated = 32;
     widhtCalculated -= diff / 1.5;
   }
@@ -39,7 +37,7 @@ export const PostImageModal = ({
   return (
     <>
       <div className="modal">
-        <div ref={forwardRef} className="modal_content">
+        <div className="modal_content">
           <div className="modal_content_inner">
             {title}
             <div className="modal-close cursor-pointer z-50">

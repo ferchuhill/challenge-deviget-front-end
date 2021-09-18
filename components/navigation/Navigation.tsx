@@ -1,14 +1,14 @@
 import { BiBarChartAlt2, BiListUl, BiGridVertical } from 'react-icons/bi';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../hook/useRedux';
 import { getViewType, setView } from '../../redux/slice/viewTypeSlice';
 
 // This component is use to see the diferent option in the main part,
 // contains the different option to navigate
-export const Navigation = () => {
+export const Navigation = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const viewTypeSelected = useAppSelector(getViewType);
 
@@ -18,14 +18,21 @@ export const Navigation = () => {
     setIsGridView(!isGridView);
   };
 
+  const changeTypeView = useCallback(
+    ({ isGrid }: { isGrid: boolean }) => {
+      isGrid ? dispatch(setView({ value: 'grid' })) : dispatch(setView({ value: 'list' }));
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
-    isGridView ? dispatch(setView({ value: 'grid' })) : dispatch(setView({ value: 'list' }));
-  }, [isGridView]);
+    changeTypeView({ isGrid: isGridView });
+  }, [changeTypeView, isGridView]);
 
   return (
     <>
       <nav>
-        <Link href="/">
+        <Link href="/" passHref={true}>
           <div className="nav_element active">
             <div>
               <BiBarChartAlt2 size={22} />

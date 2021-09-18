@@ -8,7 +8,7 @@ type Data = {
 };
 
 // Internal api, the function is to search to the reddit api, when recive the data, is parse and return
-const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<void> => {
   if (req.method !== 'GET') {
     res.status(400).json({ status: 'error', data: 'Method not support' });
   }
@@ -23,9 +23,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
   const response: {
     data: {
-      after: String;
-      before: String;
-      children: Object[];
+      after: string;
+      before: string;
+      children: [];
     };
   } = await got(`${REDDIT_API}/top.json${query}`).json();
 
