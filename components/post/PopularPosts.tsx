@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { BiHide } from 'react-icons/bi';
 import { Navigation } from '../navigation';
 import { Post } from './Post';

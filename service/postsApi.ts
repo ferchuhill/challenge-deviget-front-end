@@ -8,10 +8,8 @@ export async function fetchPosts({
   after: string | undefined;
   before: string | undefined;
 }): Promise<PropsIndexType> {
-  const internalApi = process.env.INTERNAL_API || 'http://localhost:3000';
+  const internalApi = process.env.NEXT_PUBLIC_INTERNAL_API;
   let url = `${internalApi}/api/post`;
-
-  console.log(after, before);
 
   if (after) {
     url += `/after/${after}`;
@@ -19,7 +17,6 @@ export async function fetchPosts({
   if (before) {
     url += `/before/${before}`;
   }
-  console.log(url);
   const response = await fetch(url);
   const results = await response.json();
 
