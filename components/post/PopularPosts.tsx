@@ -94,6 +94,10 @@ export const PopularPosts = (): JSX.Element => {
           .grid {
             @apply md:w-8/12 w-full my-3;
           }
+
+          .grid :global(article) {
+            @apply cursor-pointer hover:border-gray-600;
+          }
           .list {
             @apply w-full my-3 md:relative;
           }

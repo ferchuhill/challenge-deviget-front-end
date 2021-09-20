@@ -22,7 +22,7 @@ export const Header = (): JSX.Element => {
       <style jsx>
         {`
           header {
-            @apply bg-white h-12 w-screen sticky top-0 z-50;
+            @apply bg-white h-12 w-screen shadow-md sticky top-0 z-50;
           }
           .logo {
             @apply px-4 flex flex-row items-center h-full;

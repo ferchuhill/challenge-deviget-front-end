@@ -96,7 +96,7 @@ export const Post = ({ post }: { post: PostType | undefined }): JSX.Element => {
 
           .new_post {
             @apply bg-reddit-light  border-reddit-dark ring-reddit-light rounded-full;
-            @apply text-white text-center text-xs w-12 h-4  ml-4;
+            @apply text-white text-center text-xs w-12 h-4 ml-4;
           }
 
           .article_footer {

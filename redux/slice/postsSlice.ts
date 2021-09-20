@@ -82,6 +82,7 @@ export const counterSlice = createSlice({
     builder
       .addCase(findPost.pending, (state) => {
         state.status = 'loading';
+        state.value.posts = [];
       })
       .addCase(findPost.fulfilled, (state, action) => {
         state.status = 'idle';
@@ -89,6 +90,7 @@ export const counterSlice = createSlice({
       })
       .addCase(findPostBefore.pending, (state) => {
         state.status = 'loading';
+        state.value.posts = [];
       })
       .addCase(findPostBefore.fulfilled, (state, action) => {
         state.status = 'idle';
@@ -96,6 +98,7 @@ export const counterSlice = createSlice({
       })
       .addCase(findPostAfter.pending, (state) => {
         state.status = 'loading';
+        state.value.posts = [];
       })
       .addCase(findPostAfter.fulfilled, (state, action) => {
         state.status = 'idle';
