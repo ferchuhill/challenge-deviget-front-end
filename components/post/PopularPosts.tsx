@@ -63,9 +63,15 @@ export const PopularPosts = (): JSX.Element => {
           </div>
         ) : (
           <div className="list">
-            {postsRedux.posts.map((post) => {
-              return <PostList key={post.id} post={post} />;
-            })}
+            {postsRedux.posts.length > 0 ? (
+              <>
+                {postsRedux.posts.map((post) => {
+                  return <PostList key={post.id} post={post} />;
+                })}
+              </>
+            ) : (
+              <PostList post={undefined} />
+            )}
           </div>
         )}
         <div className="paginator">
@@ -89,7 +95,7 @@ export const PopularPosts = (): JSX.Element => {
             @apply md:w-8/12 w-full my-3;
           }
           .list {
-            @apply w-full my-3;
+            @apply w-full my-3 md:relative;
           }
           .paginator {
             @apply flex flex-row w-full justify-start items-center;

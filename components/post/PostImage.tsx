@@ -16,19 +16,9 @@ export const PostImage = ({
     <>
       {!thumbnail ? (
         <></>
-      ) : thumbnail.height < thumbnail.width ? (
-        <div onClick={handleClick}>
-          <Image src={thumbnail.url} layout="fill" alt={title} />
-        </div>
       ) : (
         <div onClick={handleClick}>
-          <Image
-            src={thumbnail.url}
-            layout="fixed"
-            height={parseInt(thumbnail.height) <= 384 ? thumbnail.height : 384}
-            width={thumbnail.width}
-            alt={title}
-          />
+          <Image src={thumbnail.url} layout="fill" alt={title} className="object-contain  w-full relative" />
         </div>
       )}
     </>

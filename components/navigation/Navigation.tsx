@@ -1,10 +1,10 @@
 import { BiBarChartAlt2, BiListUl, BiGridVertical } from 'react-icons/bi';
 
-import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../hook/useRedux';
 import { getViewType, setView } from '../../redux/slice/viewTypeSlice';
+import { findPost } from '../../redux/slice/postsSlice';
 
 // This component is use to see the diferent option in the main part,
 // contains the different option to navigate
@@ -16,6 +16,10 @@ export const Navigation = (): JSX.Element => {
 
   const handlerClick = () => {
     setIsGridView(!isGridView);
+  };
+
+  const handlerClickGetTop = () => {
+    dispatch(findPost());
   };
 
   const changeTypeView = useCallback(
@@ -32,14 +36,14 @@ export const Navigation = (): JSX.Element => {
   return (
     <>
       <nav>
-        <Link href="/" passHref={true}>
+        <button onClick={handlerClickGetTop}>
           <div className="nav_element active">
             <div>
               <BiBarChartAlt2 size={22} />
             </div>
             <div className="nav_element-label">Top</div>
           </div>
-        </Link>
+        </button>
         <button onClick={handlerClick}>
           <div className="nav_element">
             {isGridView ? (

@@ -1,11 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { PopularPosts } from '../components/post';
-import { PropsIndexType } from '../util';
 
 // Principal page "/".
 
-export const Home: NextPage<PropsIndexType> = (): JSX.Element => {
+export const Home: NextPage = (): JSX.Element => {
   return (
     <>
       <Head>

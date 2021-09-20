@@ -21,19 +21,6 @@ export const PostImageModal = ({
     FileSaver.saveAs(full_imagen.url);
   };
 
-  let widhtCalculated = parseInt(full_imagen.width) / 16;
-  let heightCalculated = parseInt(full_imagen.height) / 16;
-
-  //Fix distint size type to ajust
-  if (heightCalculated > 32) {
-    const diff = heightCalculated - 32;
-    heightCalculated = 32;
-    widhtCalculated -= diff / 1.5;
-  }
-  if (widhtCalculated < 10) {
-    widhtCalculated = 17;
-  }
-
   return (
     <>
       <div className="modal">
@@ -47,11 +34,8 @@ export const PostImageModal = ({
             </div>
           </div>
           <div className=" model_content_image ">
-            <div
-              className=" model_content_image_wrapper"
-              style={{ height: `${heightCalculated}rem`, width: `${widhtCalculated}rem` }}
-            >
-              <Image src={full_imagen.url} layout="fill" alt={title} />
+            <div className=" model_content_image_wrapper">
+              <Image src={full_imagen.url} layout="fill" alt={title} className="object-contain  w-full relative" />
             </div>
           </div>
 
@@ -83,7 +67,7 @@ export const PostImageModal = ({
           }
 
           .model_content_image_wrapper {
-            @apply relative w-full h-auto top-0 left-0 right-0;
+            @apply relative w-full h-96 top-0 left-0 right-0 object-contain;
           }
 
           .modal_action {

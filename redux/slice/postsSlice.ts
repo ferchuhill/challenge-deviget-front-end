@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import type { AppState, AppThunk } from '../store';
+import type { AppState } from '../store';
 import { fetchPosts } from '../../service/postsApi';
 import { PostDissmisAction, PostDissmisAllAction, PostReadAction, PropsIndexType } from '../../util';
 
@@ -85,7 +85,6 @@ export const counterSlice = createSlice({
       })
       .addCase(findPost.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(state.value);
         state.value = action.payload;
       })
       .addCase(findPostBefore.pending, (state) => {
@@ -93,7 +92,6 @@ export const counterSlice = createSlice({
       })
       .addCase(findPostBefore.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(state.value);
         state.value = action.payload;
       })
       .addCase(findPostAfter.pending, (state) => {
@@ -101,7 +99,6 @@ export const counterSlice = createSlice({
       })
       .addCase(findPostAfter.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(state.value);
         state.value = action.payload;
       });
   },
@@ -111,6 +108,7 @@ export const { setPosts, setReadPost, setDismissPost, setDismissAllPost } = coun
 
 // The function below is called a selector and allows us to select a value from
 // the state.
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getPost = (state: AppState) => {
   const posts = state.posts.value.posts.filter((post) => {
     return post.dismiss !== true;

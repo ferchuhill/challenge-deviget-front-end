@@ -59,8 +59,7 @@ export const PostMedia = ({
           }
 
           .article_thumbnail_image {
-            @apply flex justify-center items-center max-h-96 h-96 w-full;
-            @apply relative top-0 left-0 right-0;
+            @apply object-contain w-full relative max-h-96 h-96;
           }
         `}
       </style>

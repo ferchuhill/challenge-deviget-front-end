@@ -84,7 +84,7 @@ export const Post = ({ post }: { post: PostType | undefined }): JSX.Element => {
         {`
           article {
             @apply w-full bg-white border p-5  border-gray-300 text-gray-900 rounded-md flex flex-col mb-3;
-            transition: transform ease-out 0.3s;
+            @apply transition duration-500 ease-in-out;
           }
           .article_header {
             @apply text-sm text-gray-500 flex flex-row;
