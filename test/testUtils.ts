@@ -1,11 +1,13 @@
+/* eslint-disable no-alert, no-console */
+
 import { render } from '@testing-library/react';
 
-const Providers = ({ children }) => {
+const Providers = ({ children }: { children: any }) => {
   return children;
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const customRender = (ui, options = {}) => render(ui, { wrapper: Providers, ...options });
+const renderCustionVar: any = { wrapper: Providers };
+const customRender = (ui: any, options = {}) => render(ui, { ...renderCustionVar, ...options });
 
 // re-export everything
 export * from '@testing-library/react';
